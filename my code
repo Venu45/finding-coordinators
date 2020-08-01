@@ -1,0 +1,138 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int Is_in_Matching(vector<vector<int > >&G,int u,int seen[],int matchR[],int M,int N) 
+{ 
+    for (int v = 0; v < N; v++) 
+    { 
+        if (G[u][v]==1 && seen[v]==0) 
+        { 
+            seen[v] = 1;  
+            if (matchR[v] < 0 || Is_in_Matching(G, matchR[v], seen, matchR,M,N) == 1) 
+            { 
+                matchR[v] = u; 
+                return 1; 
+            } 
+        } 
+    } 
+    return 0; 
+} 
+
+  
+int Max_Matching(vector<vector<int > > &G,int M,int N) 
+{ 
+    int matchR[N]; 
+    for(int ii = 0;ii<N;ii++){
+        matchR[ii] = -1;
+    } 
+    int result = 0;  
+    for (int u = 0; u < M; u++) 
+    { 
+        int seen[N]; 
+        for(int jj = 0;jj<N;jj++){
+            seen[jj] = 0;
+        }
+        if (Is_in_Matching(G, u, seen, matchR,M,N) == 1) 
+            result++; 
+    } 
+    return result; 
+} 
+
+
+
+
+class coordinators{
+    public:
+        int age;
+        char gender;
+        string mother_tongue;
+        int cgpa;
+    
+    coordinators(int a,char g,string str,int cg){
+        age = a;
+        gender = g;
+        mother_tongue = str;
+        cgpa = cg;
+    }
+    
+    int comp(coordinators s);
+};
+
+int coordinators::comp(coordinators s){
+    int flag = 0;
+    if(s.age-age>=3 || age-s.age>=3){
+        flag = 1;
+        return flag;
+    }
+    else if(s.gender == gender){
+        flag = 1;
+        return flag;
+    }
+    else if(mother_tongue != s.mother_tongue){
+        flag = 1;
+        return flag;
+    }
+    else if(cgpa==s.cgpa){
+        flag = 1;
+        return flag;
+    }
+    return flag;
+}
+
+int main() {
+    int T,ii,jj,kk,ll;
+    int N;
+    int a;
+    char g;
+    string lang;
+    int cg;
+    cin>>T;
+    for(ii = 0;ii<T;ii++){
+        int count = 0;
+        cin>>N;
+        vector<coordinators > m;
+        vector<coordinators > f;
+        for(jj = 0;jj<N;jj++){
+            cin>>a>>g>>lang>>cg;
+            if(g == 'M')m.push_back(coordinators(a,g,lang,cg));
+            else f.push_back(coordinators(a,g,lang,cg));
+        }
+        int flag;
+        int m_size = m.size();
+        int f_size = f.size();
+        if(m_size == 0){
+            cout<<f_size<<endl;
+            continue;
+        }
+        else if(f_size == 0){
+            cout<<m_size<<endl;
+            continue;
+        }
+        int M[m.size()] = {0};
+          int F[f.size()]= {0};
+        vector<vector<int > >G;
+        vector<int >temp;
+        for(int yy = 0;yy<f_size;yy++){
+            temp.push_back(0);
+        }
+        for(int yy = 0;yy<m_size;yy++){
+            G.push_back(temp);
+        }
+        for(kk =0;kk<m_size;kk++){
+            for(ll = 0;ll<f_size;ll++){
+                if(m[kk].comp(f[ll]) == 1)G[kk][ll] = 0;
+                else G[kk][ll] = 1;
+            }
+        }
+        count = Max_Matching(G,m_size,f_size);
+        count = N-count;
+        cout<<count<<endl; 
+    }
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    return 0;
+}
