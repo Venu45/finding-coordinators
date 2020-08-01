@@ -1,0 +1,49 @@
+The student secretary Mr.Takeshi Kovacs, of the college fest "Dazzling Festival of Science", has a big task of allotting coordinators in different domains. However, he is afraid that the work may not be efficiently done when two people become friends or a couple. While he can never exclude this possibility, he frames few rules for coordinators so that they are less likely to be best buddies.
+
+Their age differs by at least 3 years
+They are of the same gender ;)
+They have different mother tongue
+They have same CGPA (Since they are more likely to have competition between them)
+So, to allocate any two coordinators, Mr.Kovacs has to make sure they satisfy at least one among the above rules. Find out the maximum number of coordinators he can select, given all this information.
+
+Input Format
+
+The first line consist of number of testcases (T). The first line of each testcase contain number of coordinators (N). Next, there will be N rows containing four space separated data-
+
+Age
+Gender
+Mother tongue language
+CGPA
+Constraints
+
+Number of testcases, T ≤ 100
+Number of coordinators, N ≤ 500
+CGPA (non-negative integer), C ≤ 10
+Age (positive integer), A ≤ 100
+Gender (Character), S in {M, F}
+Mother tongue (String), M
+Output Format
+
+For each test case in the input, print the maximum number of eligible coordinators.
+
+Sample Input 0
+
+2
+4
+19 M Marathi 8
+17 M Telugu 10
+20 M Telugu 5
+19 F Telugu 6
+8
+16 M Bengali 8
+27 F Telugu 8
+19 M Telugu 9
+17 M Marathi 8
+22 M Marathi 7
+17 M Telugu 9
+18 F Bengali 9
+23 M Bengali 7
+Sample Output 0
+
+3
+7
